@@ -1,0 +1,76 @@
+<!DOCTYPE HTML>
+<!--
+	Landed by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html lang="en">
+	<head>
+		<title>Why AI systems need boring architecture · Vinoth Kumar Ganesan</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<meta name="description" content="Vinoth Kumar Ganesan: writing about AI engineering, architecture, and building software." />
+		<link rel="stylesheet" href="../assets/css/main.css" />
+		<link rel="stylesheet" href="../assets/css/custom.css" />
+		<noscript><link rel="stylesheet" href="../assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+		<div id="page-wrapper">
+			<header id="header">
+				<h1 id="logo"><a href="../index.html">Vinoth Kumar Ganesan</a></h1>
+				<nav id="nav"><ul><li><a href="../index.html">Home</a></li><li><a href="../blog.html" class="active">Blog</a></li><li><a href="../about.html">About</a></li><li><a href="../projects.html">Projects</a></li><li><a href="../contact.html">Contact</a></li><li><a href="https://medium.com/@yourhandle" class="button primary" target="_blank" rel="noopener">Medium</a></li></ul></nav>
+			</header>
+			<div id="main" class="wrapper style1">
+				<div class="container">
+					<header class="major">
+						<h2>Why AI systems need boring architecture</h2>
+						<p>The flashy part of an AI product is the model. The part that keeps it alive is the plumbing around it.</p>
+					</header>
+					<section id="content" class="post-body">
+						<span class="image fit"><img src="../images/pic05.jpg" alt="" /></span>
+						<p class="post-meta"><time datetime="2026-10-18">Oct 18, 2026</time> · 6 min read</p>
+<p>Every AI demo I&#x27;ve seen in the last year looked impressive for about five minutes. The trouble starts when real users arrive with real data and unpredictable expectations.</p>
+<h3>Start with the boring parts</h3>
+<p>Logging, retries, timeouts, and clear ownership of data matter far more than the choice of model. I now design the request path first and only then decide which model sits inside it.</p>
+<blockquote>The model is the easiest part to replace. The plumbing is what you will live with.</blockquote>
+<p>A simple rule I keep coming back to: if you can&#x27;t replay a failed request, you can&#x27;t debug it, and if you can&#x27;t debug it, you can&#x27;t trust it.</p>
+<h3>A small example</h3>
+<pre><code>async function callModel(input, { retries = 3, timeoutMs = 15000 } = {}) {
+  for (let attempt = 1; attempt &lt;= retries; attempt++) {
+    try {
+      return await withTimeout(model.run(input), timeoutMs);
+    } catch (err) {
+      log.warn({ attempt, err });
+      if (attempt === retries) throw err;
+    }
+  }
+}</code></pre>
+<p>Nothing in that snippet is clever, and that is exactly the point.</p>
+						<ul class="actions"><li><a href="../blog.html" class="button">← All writing</a></li></ul>
+					</section>
+				</div>
+			</div>
+
+			<footer id="footer">
+					<ul class="icons">
+						<li><a href="https://github.com/yourusername" class="icon brands alt fa-github" target="_blank" rel="noopener"><span class="label">GitHub</span></a></li>
+						<li><a href="https://medium.com/@yourhandle" class="icon brands alt fa-medium-m" target="_blank" rel="noopener"><span class="label">Medium</span></a></li>
+						<li><a href="https://www.linkedin.com/in/vinothkumar23" class="icon brands alt fa-linkedin-in" target="_blank" rel="noopener"><span class="label">LinkedIn</span></a></li>
+						<li><a href="mailto:writetovinothg@gmail.com" class="icon solid alt fa-envelope"><span class="label">Email</span></a></li>
+					</ul>
+					<ul class="copyright">
+						<li>&copy; 2026 Vinoth Kumar Ganesan. All rights reserved.</li><li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</footer>
+		</div>
+		<script src="../assets/js/jquery.min.js"></script>
+		<script src="../assets/js/jquery.scrolly.min.js"></script>
+		<script src="../assets/js/jquery.dropotron.min.js"></script>
+		<script src="../assets/js/jquery.scrollex.min.js"></script>
+		<script src="../assets/js/browser.min.js"></script>
+		<script src="../assets/js/breakpoints.min.js"></script>
+		<script src="../assets/js/util.js"></script>
+		<script src="../assets/js/main.js"></script>
+
+	</body>
+</html>
